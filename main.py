@@ -11,18 +11,20 @@ from langchain.vectorstores import VectorStore
 from callback import QuestionGenCallbackHandler, StreamingLLMCallbackHandler
 from query_data import get_chain
 from schemas import ChatResponse
+from fastapi.staticfiles import StaticFiles
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 vectorstore: Optional[VectorStore] = None
+app.mount("/assets", StaticFiles(directory="assets"), name="assets")
 
 
 @app.on_event("startup")
 async def startup_event():
     logging.info("loading vectorstore")
-    if not Path("vectorstore.pkl").exists():
-        raise ValueError("vectorstore.pkl does not exist, please run ingest.py first")
-    with open("vectorstore.pkl", "rb") as f:
+    if not Path("vectorstore_ifixit.pkl").exists():
+        raise ValueError("vectorstore_ifixit.pkl does not exist, please run ingest.py first")
+    with open("vectorstore_ifixit.pkl", "rb") as f:
         global vectorstore
         vectorstore = pickle.load(f)
 
@@ -77,4 +79,4 @@ async def websocket_endpoint(websocket: WebSocket):
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=9000)
+    uvicorn.run(app, host="0.0.0.0", port=9000, root_path="/home/kwiens/ai/chat/chat-langchain/assets")

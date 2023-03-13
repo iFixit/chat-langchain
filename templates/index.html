@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Chat Your Data</title>
+    <title>FixBot</title>
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <style>
         .chat-body {
-            width: 550px;
+            width: 700px;
             margin: 50px auto;
         }
         .card-body {
@@ -51,7 +51,7 @@
         }
     </style>
     <script>
-        var endpoint = "ws://localhost:9000/chat";
+        var endpoint = "ws://localhost:9100/chat";
         var ws = new WebSocket(endpoint);
         // Receive message from server word by word. Display the words as they are received.
         ws.onmessage = function (event) {
@@ -126,8 +126,9 @@
 <body class="bg-black">
     <div class="chat-body card">
         <div class="card-body p-5">
-            <h4 class="card-title text-center text-xl font-medium"> Chat Your Data </h4>
-            <p class="card-text text-center text-sm" id="header"> Ask a question </p>
+            <img class="object-none object-center" src="/assets/images/FixBot-logo-2C-white.svg" />
+            <h4 class="card-title text-center text-xl font-medium"> Let me help you fix your XBOX </h4>
+            <p class="card-text text-center text-sm" id="header"> </p>
             <hr class="border-gray-500 mb-5" style="margin-top: 20px;">
             <div id="messages" class="overflow-auto" style="max-height: 500px;">
             </div>
